@@ -14,7 +14,7 @@ public class ActivityUtils {
 
     private static final String PREF_DEFAULT_CURRENCIES = "defaultCurrencies";
 
-    private static final String DEFAULT_CURRENCIES = "NGN,USD,EUR,GBP";
+    private static final String DEFAULT_CURRENCIES = "NGN,USD,EUR,GBP,JPY,RUB";
 
     /**
      * Add a fragment to an activity

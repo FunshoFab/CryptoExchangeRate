@@ -21,16 +21,17 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Curren
 
     private List<Currency> currencies;
     private CurrencyClickListener listener;
-    private Typeface openSansTypeface;
-    private Typeface ralewayTypeface;
-    private Typeface arialTypeface;
+    private Typeface openSans_Regular;
+    private Typeface arial_Regular;
+    private Typeface openSans_Semibold;
 
     public RecyclerAdapter(Context context, List<Currency> currencies, CurrencyClickListener listener) {
         this.currencies = currencies;
         this.listener = listener;
-        openSansTypeface = Typeface.createFromAsset(context.getAssets(), "fonts/OpenSans-Regular.ttf");
-        ralewayTypeface = Typeface.createFromAsset(context.getAssets(), "fonts/Raleway-Regular.ttf");
-        arialTypeface = Typeface.createFromAsset(context.getAssets(), "fonts/arial.ttf");
+
+        openSans_Regular = Typeface.createFromAsset(context.getAssets(), "fonts/OpenSans-Regular.ttf");
+        arial_Regular = Typeface.createFromAsset(context.getAssets(), "fonts/arial.ttf");
+        openSans_Semibold = Typeface.createFromAsset(context.getAssets(), "fonts/OpenSans-Semibold.ttf");
     }
 
     @Override
@@ -69,13 +70,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Curren
             ethPrice = (TextView) itemView.findViewById(R.id.eth_price);
 
             // Set typeface
-            currencyName.setTypeface(openSansTypeface);
-            btcPrice.setTypeface(openSansTypeface);
-            ethPrice.setTypeface(openSansTypeface);
+            currencyName.setTypeface(openSans_Semibold);
+            btcPrice.setTypeface(openSans_Regular);
+            ethPrice.setTypeface(openSans_Regular);
             // Arial is used because is supports the bitcoin symbol
-            btcSymbol.setTypeface(arialTypeface);
-            ethSymbol.setTypeface(arialTypeface);
-
+            btcSymbol.setTypeface(arial_Regular);
+            ethSymbol.setTypeface(arial_Regular);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
