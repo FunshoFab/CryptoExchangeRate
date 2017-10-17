@@ -1,6 +1,7 @@
 package com.funsooyenuga.cryptoexchangerate.home;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.funsooyenuga.cryptoexchangerate.data.ApiResponse;
 import com.funsooyenuga.cryptoexchangerate.data.source.ExchangeRateDataSource;
@@ -44,12 +45,12 @@ public class ExchangeRatePresenter implements ExchangeRateContract.Presenter {
 
                             @Override
                             public void onComplete() {
-
+                                Log.d("Exchange", "onComplete");
                             }
 
                             @Override
                             public void onError(Throwable e) {
-
+                                Log.d("Exchange", e.toString());
                             }
                         })
         );

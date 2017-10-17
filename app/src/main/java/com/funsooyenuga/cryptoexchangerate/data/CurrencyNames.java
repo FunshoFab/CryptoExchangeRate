@@ -5,26 +5,26 @@ package com.funsooyenuga.cryptoexchangerate.data;
  */
 public enum CurrencyNames {
 
-    NGN("Nigerian Naira"),
-    USD("US Dollars"),
-    EUR("Euro"),
-    GBP("Great Britain Pound"),
-    AUD("Australian Dollar"),
-    ZAR("South African Rand"),
-    CAD("Canada Dollar"),
-    JPY("Japanese Yen"),
-    CNY("Chinese Yen"),
-    INR("India Rupee "),
-    CHF("Switzerland Franc"),
-    GHS("Ghana New Cedi"),
+    NGN("Nigerian Naira (NGN)"),
+    USD("US Dollars (USD)"),
+    EUR("Euro (EUR)"),
+    GBP("Great Britain Pound (GBP)"),
+    AUD("Australian Dollar (AUD)"),
+    ZAR("South African Rand (ZAR)"),
+    CAD("Canada Dollar (CAD)"),
+    JPY("Japanese Yen (JPY)"),
+    CNY("Chinese Yen (CNY)"),
+    INR("India Rupee (INR)"),
+    CHF("Switzerland Franc (CHF)"),
+    GHS("Ghana New Cedi (GHS)"),
     NZD("New Zealand Dollar"),
-    KES("Kenya Shilling"),
-    SGD("Singapore Dollar"),
-    TWD("Taiwan Dollar"),
-    RUB("Russian Rouble"),
-    MXN("Mexican Peso"),
-    ILS("Israel New Shekel"),
-    MYR("Malaysia Ringgit");
+    KES("Kenya Shilling (KES)"),
+    SGD("Singapore Dollar (SGD)"),
+    TWD("Taiwan Dollar (TWD)"),
+    RUB("Russian Rouble (RUB)"),
+    MXN("Mexican Peso (MXN)"),
+    ILS("Israel New Shekel (ILS)"),
+    MYR("Malaysia Ringgit (MYR)");
 
     private String name;
 
