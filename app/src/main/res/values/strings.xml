@@ -1,7 +1,11 @@
 <resources>
     <string name="app_name">Crypto Exchange Rate</string>
     <string name="action_settings">Settings</string>
+
     <string name="debug_mode_active">App is running in mock mode, local json data would be used.
         \nFor live data, change the build variant to prodDebug</string>
-    <string name="error_loading_exchange_rate">Oops! Check your internet connection and try again.</string>
+    <string name="error_loading_exchange_rate">Oops! Check your internet connection and pull down to retry.</string>
+
+    <string name="refresh_complete">Exchange rate is up to date</string>
+    <string name="retry">Retry</string>
 </resources>

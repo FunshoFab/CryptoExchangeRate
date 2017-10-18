@@ -1,8 +1,10 @@
 package com.funsooyenuga.cryptoexchangerate.home;
 
 import android.content.Context;
-import android.util.Log;
+import android.support.design.widget.Snackbar;
+import android.view.View;
 
+import com.funsooyenuga.cryptoexchangerate.R;
 import com.funsooyenuga.cryptoexchangerate.data.ApiResponse;
 import com.funsooyenuga.cryptoexchangerate.data.source.ExchangeRateDataSource;
 import com.funsooyenuga.cryptoexchangerate.util.ActivityUtils;
@@ -31,7 +33,7 @@ public class ExchangeRatePresenter implements ExchangeRateContract.Presenter {
         getExchangeRate(false);
     }
 
-    private void getExchangeRate(boolean refresh) {
+    private void getExchangeRate(final boolean refresh) {
         compositeDisposable.add(
                 dataSource.getExchangeRate(context, refresh)
                         .subscribeOn(Schedulers.io())
@@ -41,16 +43,27 @@ public class ExchangeRatePresenter implements ExchangeRateContract.Presenter {
                             public void onNext(ApiResponse value) {
                                 view.showExchangeRate(dataSource.parseApiResponse(value,
                                         ActivityUtils.getDefaultCurrencies(context)));
+                                if (refresh) {
+                                    view.showSnack(context.getString(R.string.refresh_complete),
+                                            Snackbar.LENGTH_SHORT, null, null);
+                                }
                             }
 
                             @Override
                             public void onComplete() {
-                                Log.d("Exchange", "onComplete");
+
                             }
 
                             @Override
                             public void onError(Throwable e) {
-                                Log.d("Exchange", e.toString());
+                                view.errorWhileLoading();
+                                view.showSnack(context.getString(R.string.error_loading_exchange_rate),
+                                        Snackbar.LENGTH_LONG, context.getString(R.string.retry), new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                getExchangeRate(true);
+                                            }
+                                        });
                             }
                         })
         );
