@@ -48,7 +48,7 @@
             tools:text="B" />
 
         <TextView
-            android:id="@+id/btc_price"
+            android:id="@+id/btc_converted_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/divider"
@@ -70,7 +70,7 @@
             tools:text="E" />
 
         <TextView
-            android:id="@+id/eth_price"
+            android:id="@+id/eth_converted_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/btc_symbol"

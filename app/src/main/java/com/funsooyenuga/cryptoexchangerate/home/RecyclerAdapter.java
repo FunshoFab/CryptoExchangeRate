@@ -65,9 +65,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Curren
 
             currencyName = (TextView) itemView.findViewById(R.id.currency_name);
             btcSymbol = (TextView) itemView.findViewById(R.id.btc_symbol);
-            btcPrice = (TextView) itemView.findViewById(R.id.btc_price);
+            btcPrice = (TextView) itemView.findViewById(R.id.btc_converted_price);
             ethSymbol= (TextView) itemView.findViewById(R.id.eth_symbol);
-            ethPrice = (TextView) itemView.findViewById(R.id.eth_price);
+            ethPrice = (TextView) itemView.findViewById(R.id.eth_converted_price);
 
             // Set typeface
             currencyName.setTypeface(openSans_Semibold);
@@ -80,7 +80,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Curren
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.onCurrencyClick(currencies.get(getAdapterPosition()));
+                    listener.onCurrencyClick(currencies.get(getAdapterPosition()).getFullName());
                 }
             });
         }
@@ -93,6 +93,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Curren
 
     interface CurrencyClickListener {
 
-        void onCurrencyClick(Currency currency);
+        void onCurrencyClick(String currencyName);
     }
 }

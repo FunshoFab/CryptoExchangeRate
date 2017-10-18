@@ -122,6 +122,14 @@ public class ExchangeRateDataSource {
                 ethDisplayPrice, ethPrice, btcSymbol, ethSymbol);
     }
 
+    public Currency getCurrency(String currencyName) {
+        for (Currency c : cachedDefaultCurrencies) {
+            if (c.getFullName().equals(currencyName))
+                return c;
+        }
+        return null;
+    }
+
     /**
      * Add a new Currency to the default currencies shown on the home screen
      *

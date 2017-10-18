@@ -26,6 +26,7 @@ public class ExchangeRateFragment extends Fragment implements ExchangeRateContra
     private RecyclerAdapter adapter;
     private SwipeRefreshLayout swipeRefresh;
     private TextView errorWhileLoading;
+    private CurrencyClickListener listener;
 
     public ExchangeRateFragment() {
         // Required empty public constructor
@@ -39,11 +40,12 @@ public class ExchangeRateFragment extends Fragment implements ExchangeRateContra
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = new ExchangeRatePresenter();
+        listener = (CurrencyClickListener) getActivity();
         adapter = new RecyclerAdapter(getActivity(), new ArrayList<Currency>(),
                 new RecyclerAdapter.CurrencyClickListener() {
                     @Override
-                    public void onCurrencyClick(Currency currency) {
-                        // do something
+                    public void onCurrencyClick(String currencyName) {
+                        listener.onCurrencyClick(currencyName);
                     }
                 });
     }
@@ -105,5 +107,10 @@ public class ExchangeRateFragment extends Fragment implements ExchangeRateContra
     public void errorWhileLoading() {
         swipeRefresh.setRefreshing(false);
         errorWhileLoading.setVisibility(View.VISIBLE);
+    }
+
+    interface CurrencyClickListener {
+
+        void onCurrencyClick(String currencyName);
     }
 }

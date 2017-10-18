@@ -7,9 +7,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.funsooyenuga.cryptoexchangerate.R;
+import com.funsooyenuga.cryptoexchangerate.convert.ConvertActivity;
 import com.funsooyenuga.cryptoexchangerate.util.ActivityUtils;
 
-public class ExchangeRateActivity extends AppCompatActivity {
+public class ExchangeRateActivity extends AppCompatActivity implements ExchangeRateFragment.CurrencyClickListener {
 
     private static final String TAG = ExchangeRateActivity.class.getSimpleName();
 
@@ -22,6 +23,11 @@ public class ExchangeRateActivity extends AppCompatActivity {
 
         ActivityUtils.hostFragment(getSupportFragmentManager(), R.id.content_frame,
                 ExchangeRateFragment.newInstance(), null);
+    }
+
+    @Override
+    public void onCurrencyClick(String currencyName) {
+        startActivity(ConvertActivity.newIntent(this, currencyName));
     }
 
     @Override

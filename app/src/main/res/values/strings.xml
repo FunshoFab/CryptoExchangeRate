@@ -8,4 +8,6 @@
 
     <string name="refresh_complete">Exchange rate is up to date</string>
     <string name="retry">Retry</string>
+
+    <string name="enter_amount">Amount</string>
 </resources>
