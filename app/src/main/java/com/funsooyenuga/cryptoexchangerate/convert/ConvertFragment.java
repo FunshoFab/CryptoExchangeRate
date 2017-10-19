@@ -1,6 +1,7 @@
 package com.funsooyenuga.cryptoexchangerate.convert;
 
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.funsooyenuga.cryptoexchangerate.R;
+import com.funsooyenuga.cryptoexchangerate.util.FontUtils;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,6 +28,8 @@ public class ConvertFragment extends Fragment implements ConvertContract.View {
     private EditText amount;
     private TextView btcSymbol, btcConvertedPrice, ethSymbol, ethConvertedPrice;
     private RelativeLayout displayConversion;
+
+    private Typeface openSansRegular, arialRegular;
 
     public static ConvertFragment newInstance(String currencyAbbr) {
         Bundle args = new Bundle();
@@ -49,6 +53,9 @@ public class ConvertFragment extends Fragment implements ConvertContract.View {
 
         presenter = new ConvertPresenter();
         presenter.subscribe(this, currencyName);
+
+        openSansRegular = FontUtils.getOpenSansRegular(getActivity());
+        arialRegular = FontUtils.getArialRegular(getActivity());
     }
 
 
@@ -70,6 +77,14 @@ public class ConvertFragment extends Fragment implements ConvertContract.View {
         ethConvertedPrice  = (TextView) v.findViewById(R.id.eth_converted_price);
         ethSymbol = (TextView) v.findViewById(R.id.eth_symbol);
         ethSymbol.setText(presenter.provideEthSymbol());
+
+        // Set Typeface
+        amount.setTypeface(openSansRegular);
+        btcConvertedPrice.setTypeface(openSansRegular);
+        ethConvertedPrice.setTypeface(openSansRegular);
+
+        btcSymbol.setTypeface(arialRegular);
+        ethSymbol.setTypeface(arialRegular);
 
         return v;
     }
