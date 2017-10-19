@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.funsooyenuga.cryptoexchangerate.R;
 import com.funsooyenuga.cryptoexchangerate.data.Currency;
+import com.funsooyenuga.cryptoexchangerate.util.FontUtils;
 
 import java.util.List;
 
@@ -29,9 +30,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Curren
         this.currencies = currencies;
         this.listener = listener;
 
-        openSans_Regular = Typeface.createFromAsset(context.getAssets(), "fonts/OpenSans-Regular.ttf");
-        arial_Regular = Typeface.createFromAsset(context.getAssets(), "fonts/arial.ttf");
-        openSans_Semibold = Typeface.createFromAsset(context.getAssets(), "fonts/OpenSans-Semibold.ttf");
+        openSans_Regular = FontUtils.getOpenSansRegular(context);
+        openSans_Semibold = FontUtils.getOpenSansSemiBold(context);
+        arial_Regular = FontUtils.getArialRegular(context);
     }
 
     @Override
