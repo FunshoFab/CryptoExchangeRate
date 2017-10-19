@@ -5,11 +5,13 @@ import android.content.Context;
 import com.funsooyenuga.cryptoexchangerate.data.ApiResponse;
 import com.funsooyenuga.cryptoexchangerate.data.Currency;
 import com.funsooyenuga.cryptoexchangerate.data.api.CryptoCompareService;
+import com.funsooyenuga.cryptoexchangerate.rxbus.CurrencyChangeEvent;
+import com.funsooyenuga.cryptoexchangerate.rxbus.RxBus;
 import com.funsooyenuga.cryptoexchangerate.util.ActivityUtils;
 import com.funsooyenuga.cryptoexchangerate.util.ApiUtils;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -84,11 +86,10 @@ public class ExchangeRateDataSource {
     public List<Currency> parseApiResponse(ApiResponse response, String defaultCurrencies) {
         initMaps(response);
         String[] currencies = defaultCurrencies.split(",");
-        cachedDefaultCurrencies = new HashMap<>();
+        cachedDefaultCurrencies = new LinkedHashMap<>();
 
         for (String currencyName : currencies) {
-            Currency currency = createCurrency(currencyName);
-            cachedDefaultCurrencies.put(currencyName, currency);
+            cachedDefaultCurrencies.put(currencyName, createCurrency(currencyName));
         }
 
         return new ArrayList<>(cachedDefaultCurrencies.values());
@@ -125,14 +126,28 @@ public class ExchangeRateDataSource {
     }
 
     /**
-     * Add a new Currency to the default currencies shown on the home screen
+     * Adds a new Currency to the default currencies shown on the home screen
      *
      * @param currencyName the abbr of the Currency to be added
      * @return
      */
     public void addNewDefaultCurrency(Context context, String currencyName) {
         cachedDefaultCurrencies.put(currencyName, createCurrency(currencyName));
+        RxBus.getInstance().sendEvent(new CurrencyChangeEvent());
         ActivityUtils.addDefaultCurrency(context, currencyName);
+    }
+
+    public List<String> getNonDefaultCurrencyNames() {
+        // All the initialised maps contain all the major currencies so use any one
+        Map<String, Currency> nonDefault = displayBtcMap;
+        for (String currency : cachedDefaultCurrencies.keySet()) {
+            nonDefault.remove(currency);
+        }
+        return new ArrayList<>(nonDefault.keySet());
+    }
+
+    public List<Currency> getDefaultCurrencies() {
+        return new ArrayList<>(cachedDefaultCurrencies.values());
     }
 
     /**

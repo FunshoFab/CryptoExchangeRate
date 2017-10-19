@@ -16,10 +16,7 @@ public class ActivityUtils {
 
     private static final String DEFAULT_CURRENCIES = "Nigerian Naira (NGN)," +
             "US Dollars (USD)," +
-            "Euro (EUR)," +
-            "Great Britain Pound (GBP)," +
-            "Japanese Yen (JPY)," +
-            "Russian Rouble (RUB)";
+            "Euro (EUR)";
 
     /**
      * Add a fragment to an activity

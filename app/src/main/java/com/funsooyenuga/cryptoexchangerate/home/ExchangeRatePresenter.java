@@ -7,10 +7,13 @@ import android.view.View;
 import com.funsooyenuga.cryptoexchangerate.R;
 import com.funsooyenuga.cryptoexchangerate.data.ApiResponse;
 import com.funsooyenuga.cryptoexchangerate.data.source.ExchangeRateDataSource;
+import com.funsooyenuga.cryptoexchangerate.rxbus.CurrencyChangeEvent;
+import com.funsooyenuga.cryptoexchangerate.rxbus.RxBus;
 import com.funsooyenuga.cryptoexchangerate.util.ActivityUtils;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
@@ -30,7 +33,20 @@ public class ExchangeRatePresenter implements ExchangeRateContract.Presenter {
         this.view = view;
         this.context = context;
         dataSource = ExchangeRateDataSource.getInstance();
+        subscribeToRxBus();
         getExchangeRate(false);
+    }
+
+    private void subscribeToRxBus() {
+        compositeDisposable.add(
+                RxBus.getInstance().subscribeToBus().subscribe(new Consumer<Object>() {
+                    @Override
+                    public void accept(Object o) throws Exception {
+                        if (o instanceof CurrencyChangeEvent) {
+                            view.showExchangeRate(dataSource.getDefaultCurrencies());
+                        }
+                    }
+                }));
     }
 
     private void getExchangeRate(final boolean refresh) {

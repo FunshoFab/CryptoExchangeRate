@@ -1,5 +1,7 @@
 package com.funsooyenuga.cryptoexchangerate.rxbus;
 
+import android.util.Log;
+
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
 
