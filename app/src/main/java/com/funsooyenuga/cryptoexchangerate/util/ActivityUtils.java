@@ -14,7 +14,12 @@ public class ActivityUtils {
 
     private static final String PREF_DEFAULT_CURRENCIES = "defaultCurrencies";
 
-    private static final String DEFAULT_CURRENCIES = "NGN,USD,EUR,GBP,JPY,RUB";
+    private static final String DEFAULT_CURRENCIES = "Nigerian Naira (NGN)," +
+            "US Dollars (USD)," +
+            "Euro (EUR)," +
+            "Great Britain Pound (GBP)," +
+            "Japanese Yen (JPY)," +
+            "Russian Rouble (RUB)";
 
     /**
      * Add a fragment to an activity
@@ -47,12 +52,12 @@ public class ActivityUtils {
      * Add a new Currency to the currencies displayed in the Home Screen
      *
      * @param context
-     * @param currencyAbbr the abbreviation of the currency
+     * @param currencyName the abbreviation of the currency
      */
-    public static void addDefaultCurrency(Context context, String currencyAbbr) {
+    public static void addDefaultCurrency(Context context, String currencyName) {
         PreferenceManager.getDefaultSharedPreferences(context)
                 .edit()
-                .putString(PREF_DEFAULT_CURRENCIES, getDefaultCurrencies(context) + "," + currencyAbbr)
+                .putString(PREF_DEFAULT_CURRENCIES, getDefaultCurrencies(context) + "," + currencyName)
                 .apply();
     }
 }

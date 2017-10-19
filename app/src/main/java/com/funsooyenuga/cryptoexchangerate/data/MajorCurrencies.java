@@ -2,69 +2,33 @@ package com.funsooyenuga.cryptoexchangerate.data;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Created by FAB THE GREAT on 12/10/2017.
  */
 
 public class MajorCurrencies {
 
-    @SerializedName("NGN") protected Currency ngn;
-    @SerializedName("USD") protected Currency usd;
-    @SerializedName("EUR") protected Currency eur;
-    @SerializedName("GBP") protected Currency gbp;
-    @SerializedName("AUD") protected Currency aud;
-    @SerializedName("ZAR") protected Currency zar;
-    @SerializedName("CAD") protected Currency cad;
-    @SerializedName("JPY") protected Currency jpy;
-    @SerializedName("CNY") protected Currency cny;
-    @SerializedName("INR") protected Currency inr;
+    @SerializedName("NGN") private Currency ngn;
+    @SerializedName("USD") private Currency usd;
+    @SerializedName("EUR") private Currency eur;
+    @SerializedName("GBP") private Currency gbp;
+    @SerializedName("AUD") private Currency aud;
+    @SerializedName("ZAR") private Currency zar;
+    @SerializedName("CAD") private Currency cad;
+    @SerializedName("JPY") private Currency jpy;
+    @SerializedName("CNY") private Currency cny;
+    @SerializedName("INR") private Currency inr;
 
-    @SerializedName("CHF") protected Currency chf;
-    @SerializedName("GHS") protected Currency ghs;
-    @SerializedName("NZD") protected Currency nzd;
-    @SerializedName("KES") protected Currency kes;
-    @SerializedName("SGD") protected Currency sgd;
-    @SerializedName("TWD") protected Currency twd;
-    @SerializedName("RUB") protected Currency rub;
-    @SerializedName("MXN") protected Currency mxn;
-    @SerializedName("ILS") protected Currency ils;
-    @SerializedName("MYR") protected Currency myr;
-
-    private Map<String, Currency> currencies = new HashMap<>();
-
-    public Map<String, Currency> getAllCurrencies() {
-        if (currencies.isEmpty()) {
-            addCurrenciesToMap();
-        }
-        return currencies;
-    }
-
-    private void addCurrenciesToMap() {
-        currencies.put("NGN", ngn);
-        currencies.put("USD", usd);
-        currencies.put("EUR", eur);
-        currencies.put("GBP", gbp);
-        currencies.put("AUD", aud);
-        currencies.put("ZAR", zar);
-        currencies.put("CAD", cad);
-        currencies.put("JPY", jpy);
-        currencies.put("CNY", cny);
-        currencies.put("INR", inr);
-
-        currencies.put("CHF", chf);
-        currencies.put("GHS", ghs);
-        currencies.put("NZD", nzd);
-        currencies.put("KES", kes);
-        currencies.put("SGD", sgd);
-        currencies.put("TWD", twd);
-        currencies.put("RUB", rub);
-        currencies.put("MXN", mxn);
-        currencies.put("ILS", ils);
-        currencies.put("MYR", myr);
-    }
+    @SerializedName("CHF") private Currency chf;
+    @SerializedName("GHS") private Currency ghs;
+    @SerializedName("NZD") private Currency nzd;
+    @SerializedName("KES") private Currency kes;
+    @SerializedName("SGD") private Currency sgd;
+    @SerializedName("TWD") private Currency twd;
+    @SerializedName("RUB") private Currency rub;
+    @SerializedName("MXN") private Currency mxn;
+    @SerializedName("ILS") private Currency ils;
+    @SerializedName("MYR") private Currency myr;
 
     // Helper methods
     public Currency getAud() {

@@ -4,12 +4,12 @@ import android.content.Context;
 
 import com.funsooyenuga.cryptoexchangerate.data.ApiResponse;
 import com.funsooyenuga.cryptoexchangerate.data.Currency;
-import com.funsooyenuga.cryptoexchangerate.data.CurrencyNames;
 import com.funsooyenuga.cryptoexchangerate.data.api.CryptoCompareService;
 import com.funsooyenuga.cryptoexchangerate.util.ActivityUtils;
 import com.funsooyenuga.cryptoexchangerate.util.ApiUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -28,7 +28,7 @@ public class ExchangeRateDataSource {
 
     private static ExchangeRateDataSource instance;
 
-    private List<Currency> cachedDefaultCurrencies;
+    private Map<String, Currency> cachedDefaultCurrencies;
     private ApiResponse cachedApiResponse;
 
     private Map<String, Currency> rawBtcMap, rawEthMap;
@@ -82,33 +82,31 @@ public class ExchangeRateDataSource {
      * @return
      */
     public List<Currency> parseApiResponse(ApiResponse response, String defaultCurrencies) {
-        List<Currency> currencyList = new ArrayList<>();
-
         initMaps(response);
         String[] currencies = defaultCurrencies.split(",");
+        cachedDefaultCurrencies = new HashMap<>();
 
-        for (String currency : currencies) {
-            currencyList.add(createCurrency(currency));
+        for (String currencyName : currencies) {
+            Currency currency = createCurrency(currencyName);
+            cachedDefaultCurrencies.put(currencyName, currency);
         }
 
-        cachedDefaultCurrencies = currencyList;
-        return currencyList;
+        return new ArrayList<>(cachedDefaultCurrencies.values());
     }
 
     /**
      * Creates a new Currency object with all the necessary fields
      *
-     * @param currencyAbbr the short name of the Currency to be created
+     * @param currencyName
      * @return
      */
-    private Currency createCurrency(String currencyAbbr) {
-        Currency displayBtc = displayBtcMap.get(currencyAbbr);
-        Currency displayEth = displayEthMap.get(currencyAbbr);
-        Currency rawBtc = rawBtcMap.get(currencyAbbr);
-        Currency rawEth = rawEthMap.get(currencyAbbr);
+    private Currency createCurrency(String currencyName) {
+        Currency displayBtc = displayBtcMap.get(currencyName);
+        Currency displayEth = displayEthMap.get(currencyName);
+        Currency rawBtc = rawBtcMap.get(currencyName);
+        Currency rawEth = rawEthMap.get(currencyName);
 
         String abbr = rawBtc.getSymbol(); // Symbol in Raw is always the short name of the currency
-        String fullName  = CurrencyNames.valueOf(abbr).getName();
 
         String btcDisplayPrice  = displayBtc.getPrice();
         float btcPrice = Float.valueOf(rawBtc.getPrice());
@@ -118,27 +116,23 @@ public class ExchangeRateDataSource {
         float ethPrice = Float.valueOf(rawEth.getPrice());
         String ethSymbol = displayEth.getFromSymbol();
 
-        return new Currency(abbr, fullName, btcDisplayPrice, btcPrice,
+        return new Currency(abbr, currencyName, btcDisplayPrice, btcPrice,
                 ethDisplayPrice, ethPrice, btcSymbol, ethSymbol);
     }
 
     public Currency getCurrency(String currencyName) {
-        for (Currency c : cachedDefaultCurrencies) {
-            if (c.getFullName().equals(currencyName))
-                return c;
-        }
-        return null;
+        return cachedDefaultCurrencies.get(currencyName);
     }
 
     /**
      * Add a new Currency to the default currencies shown on the home screen
      *
-     * @param currencyAbbr the abbr of the Currency to be added
+     * @param currencyName the abbr of the Currency to be added
      * @return
      */
-    public void addNewDefaultCurrency(Context context, String currencyAbbr) {
-        cachedDefaultCurrencies.add(createCurrency(currencyAbbr));
-        ActivityUtils.addDefaultCurrency(context, currencyAbbr);
+    public void addNewDefaultCurrency(Context context, String currencyName) {
+        cachedDefaultCurrencies.put(currencyName, createCurrency(currencyName));
+        ActivityUtils.addDefaultCurrency(context, currencyName);
     }
 
     /**
@@ -154,10 +148,5 @@ public class ExchangeRateDataSource {
             displayEthMap = addCurrenciesToMap(response.getDisplay().getEthereum());
             mapInit = true;
         }
-    }
-
-
-    public List<Currency> getCachedDefaultCurrencies() {
-        return cachedDefaultCurrencies;
     }
 }

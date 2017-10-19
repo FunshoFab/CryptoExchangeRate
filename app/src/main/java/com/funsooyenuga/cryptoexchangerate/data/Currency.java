@@ -25,7 +25,7 @@ public class Currency {
 
     // To be set manually
     private String abbr; // The "ToSymbol" in Raw is the abbr of the currency eg USD, NGN
-    private String fullName; // Get this from the CurrencyNames enum using the abbr
+    private String fullName;
     private float btcRawPrice; // The exchange rate
     private float ethRawPrice;
     private String btcDisplayPrice; // formatted price for display

@@ -1,10 +1,12 @@
 package com.funsooyenuga.cryptoexchangerate.home;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.funsooyenuga.cryptoexchangerate.R;
 import com.funsooyenuga.cryptoexchangerate.convert.ConvertActivity;
@@ -28,6 +30,14 @@ public class ExchangeRateActivity extends AppCompatActivity {
         ActivityUtils.hostFragment(getSupportFragmentManager(), R.id.content_frame,
                 ExchangeRateFragment.newInstance(), null);
 
+        FloatingActionButton addCurrency = (FloatingActionButton) findViewById(R.id.add_currency);
+        addCurrency.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showAddCurrencyScreen();
+            }
+        });
+
         RxBus.getInstance().subscribeToBus().subscribe(new Consumer<Object>() {
             @Override
             public void accept(Object o) throws Exception {
@@ -37,6 +47,11 @@ public class ExchangeRateActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void showAddCurrencyScreen() {
+        AddCurrencyFragment frag = AddCurrencyFragment.newInstance();
+        frag.show(getSupportFragmentManager(), null);
     }
 
     private void showConvertScreen(String currencyName) {
