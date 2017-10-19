@@ -8,9 +8,13 @@ import android.view.MenuItem;
 
 import com.funsooyenuga.cryptoexchangerate.R;
 import com.funsooyenuga.cryptoexchangerate.convert.ConvertActivity;
+import com.funsooyenuga.cryptoexchangerate.rxbus.CurrencyClickEvent;
+import com.funsooyenuga.cryptoexchangerate.rxbus.RxBus;
 import com.funsooyenuga.cryptoexchangerate.util.ActivityUtils;
 
-public class ExchangeRateActivity extends AppCompatActivity implements ExchangeRateFragment.CurrencyClickListener {
+import io.reactivex.functions.Consumer;
+
+public class ExchangeRateActivity extends AppCompatActivity {
 
     private static final String TAG = ExchangeRateActivity.class.getSimpleName();
 
@@ -23,10 +27,19 @@ public class ExchangeRateActivity extends AppCompatActivity implements ExchangeR
 
         ActivityUtils.hostFragment(getSupportFragmentManager(), R.id.content_frame,
                 ExchangeRateFragment.newInstance(), null);
+
+        RxBus.getInstance().subscribeToBus().subscribe(new Consumer<Object>() {
+            @Override
+            public void accept(Object o) throws Exception {
+                if (o instanceof CurrencyClickEvent) {
+                    CurrencyClickEvent event = (CurrencyClickEvent) o;
+                    showConvertScreen(event.getCurrencyName());
+                }
+            }
+        });
     }
 
-    @Override
-    public void onCurrencyClick(String currencyName) {
+    private void showConvertScreen(String currencyName) {
         startActivity(ConvertActivity.newIntent(this, currencyName));
     }
 

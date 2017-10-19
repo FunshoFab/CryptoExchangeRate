@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.funsooyenuga.cryptoexchangerate.R;
 import com.funsooyenuga.cryptoexchangerate.data.Currency;
+import com.funsooyenuga.cryptoexchangerate.rxbus.CurrencyClickEvent;
+import com.funsooyenuga.cryptoexchangerate.rxbus.RxBus;
 import com.funsooyenuga.cryptoexchangerate.util.FontUtils;
 
 import java.util.List;
@@ -21,14 +23,12 @@ import java.util.List;
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.CurrencyHolder> {
 
     private List<Currency> currencies;
-    private CurrencyClickListener listener;
     private Typeface openSans_Regular;
     private Typeface arial_Regular;
     private Typeface openSans_Semibold;
 
-    public RecyclerAdapter(Context context, List<Currency> currencies, CurrencyClickListener listener) {
+    public RecyclerAdapter(Context context, List<Currency> currencies) {
         this.currencies = currencies;
-        this.listener = listener;
 
         openSans_Regular = FontUtils.getOpenSansRegular(context);
         openSans_Semibold = FontUtils.getOpenSansSemiBold(context);
@@ -81,7 +81,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Curren
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.onCurrencyClick(currencies.get(getAdapterPosition()).getFullName());
+                    String currencyName = currencies.get(getAdapterPosition()).getFullName();
+                    RxBus.getInstance().sendEvent(new CurrencyClickEvent(currencyName));
                 }
             });
         }
@@ -90,10 +91,5 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Curren
     public void refresh(List<Currency> currencies) {
         this.currencies = currencies;
         notifyDataSetChanged();
-    }
-
-    interface CurrencyClickListener {
-
-        void onCurrencyClick(String currencyName);
     }
 }
