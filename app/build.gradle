@@ -31,7 +31,8 @@ android {
     // Remove mockRelease as it's not needed.
     android.variantFilter { variant ->
         if (variant.buildType.name.equals('release')
-                && variant.getFlavors().get(0).name.equals('mock')) {
+                && (variant.getFlavors().get(0).name.equals('mock')
+                || variant.getFlavors().get(0).name.equals('prod'))) {
             variant.setIgnore(true);
         }
     }
