@@ -24,6 +24,7 @@ public class ExchangeRateFragment extends Fragment implements ExchangeRateContra
 
     private ExchangeRateContract.Presenter presenter;
     private RecyclerAdapter adapter;
+    private RecyclerView exchangeRateRv;
     private SwipeRefreshLayout swipeRefresh;
     private TextView errorWhileLoading;
 
@@ -48,7 +49,7 @@ public class ExchangeRateFragment extends Fragment implements ExchangeRateContra
         View v = inflater.inflate(R.layout.fragment_exchange_rate, container, false);
 
         errorWhileLoading = (TextView) v.findViewById(R.id.error_while_loading);
-        RecyclerView exchangeRateRv = (RecyclerView) v.findViewById(R.id.exchange_rate_rv);
+        exchangeRateRv = (RecyclerView) v.findViewById(R.id.exchange_rate_rv);
         exchangeRateRv.setAdapter(adapter);
         exchangeRateRv.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -84,6 +85,8 @@ public class ExchangeRateFragment extends Fragment implements ExchangeRateContra
     public void showExchangeRate(List<Currency> currencies) {
         swipeRefresh.setRefreshing(false);
         errorWhileLoading.setVisibility(View.GONE);
+        exchangeRateRv.setVisibility(View.VISIBLE);
+
         adapter.refresh(currencies);
     }
 
@@ -98,6 +101,8 @@ public class ExchangeRateFragment extends Fragment implements ExchangeRateContra
     @Override
     public void errorWhileLoading() {
         swipeRefresh.setRefreshing(false);
+        exchangeRateRv.setVisibility(View.GONE);
         errorWhileLoading.setVisibility(View.VISIBLE);
+
     }
 }
