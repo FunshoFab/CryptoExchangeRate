@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.funsooyenuga.cryptoexchangerate.R;
@@ -14,11 +12,12 @@ import com.funsooyenuga.cryptoexchangerate.rxbus.CurrencyClickEvent;
 import com.funsooyenuga.cryptoexchangerate.rxbus.RxBus;
 import com.funsooyenuga.cryptoexchangerate.util.ActivityUtils;
 
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
 
 public class ExchangeRateActivity extends AppCompatActivity {
 
-    private static final String TAG = ExchangeRateActivity.class.getSimpleName();
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,15 +37,26 @@ public class ExchangeRateActivity extends AppCompatActivity {
             }
         });
 
-        RxBus.getInstance().subscribeToBus().subscribe(new Consumer<Object>() {
-            @Override
-            public void accept(Object o) throws Exception {
-                if (o instanceof CurrencyClickEvent) {
-                    CurrencyClickEvent event = (CurrencyClickEvent) o;
-                    showConvertScreen(event.getCurrencyName());
-                }
-            }
-        });
+        subscribeToBus();
+    }
+
+    private void subscribeToBus() {
+        compositeDisposable.add(
+                RxBus.getInstance().subscribeToBus().subscribe(new Consumer<Object>() {
+                    @Override
+                    public void accept(Object o) throws Exception {
+                        if (o instanceof CurrencyClickEvent) {
+                            CurrencyClickEvent event = (CurrencyClickEvent) o;
+                            showConvertScreen(event.getCurrencyName());
+                        }
+                    }
+                }));
+    }
+
+    @Override
+    protected void onDestroy() {
+        compositeDisposable.clear();
+        super.onDestroy();
     }
 
     private void showAddCurrencyScreen() {
@@ -56,22 +66,5 @@ public class ExchangeRateActivity extends AppCompatActivity {
 
     private void showConvertScreen(String currencyName) {
         startActivity(ConvertActivity.newIntent(this, currencyName));
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 }
