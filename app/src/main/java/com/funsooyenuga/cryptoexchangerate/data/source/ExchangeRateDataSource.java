@@ -11,6 +11,7 @@ import com.funsooyenuga.cryptoexchangerate.util.ActivityUtils;
 import com.funsooyenuga.cryptoexchangerate.util.ApiUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -139,7 +140,7 @@ public class ExchangeRateDataSource {
 
     public List<String> getNonDefaultCurrencyNames() {
         // All the initialised maps contain all the major currencies so use any one
-        Map<String, Currency> nonDefault = displayBtcMap;
+        Map<String, Currency> nonDefault = new HashMap<>(displayBtcMap);
         for (String currency : cachedDefaultCurrencies.keySet()) {
             nonDefault.remove(currency);
         }
