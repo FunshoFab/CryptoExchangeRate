@@ -129,7 +129,7 @@ public class ExchangeRateDataSource {
     /**
      * Adds a new Currency to the default currencies shown on the home screen
      *
-     * @param currencyName the abbr of the Currency to be added
+     * @param currencyName the name of the Currency to be added
      * @return
      */
     public void addNewDefaultCurrency(Context context, String currencyName) {

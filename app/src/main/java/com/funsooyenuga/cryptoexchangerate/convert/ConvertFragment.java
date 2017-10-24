@@ -15,9 +15,6 @@ import android.widget.TextView;
 import com.funsooyenuga.cryptoexchangerate.R;
 import com.funsooyenuga.cryptoexchangerate.util.FontUtils;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class ConvertFragment extends Fragment implements ConvertContract.View {
 
     public static final String ARGS_CURRENCY_ABBR = "currencyAbbr";

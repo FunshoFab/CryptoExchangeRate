@@ -18,7 +18,7 @@ import okhttp3.ResponseBody;
 /**
  * Created by FAB THE GREAT on 13/10/2017.
  *
- * Uses a json response stored in assets when app is running in Mock mode
+ * Returns a json response stored in assets when app is running in Mock mode
  */
 
 public class MockInterceptor implements Interceptor {
@@ -35,8 +35,7 @@ public class MockInterceptor implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
         Response response = null;
         if (BuildConfig.FLAVOR.equals("mock")) {
-            Log.d(TAG, context.getString(R.string.debug_mode_active) +
-                    "For live data, change the build variant to prodDebug");
+            Log.d(TAG, context.getString(R.string.debug_mode_active));
 
             // Check if the request being sent is for multifull API
             if (chain.request().url().toString().contains("pricemultifull")) {

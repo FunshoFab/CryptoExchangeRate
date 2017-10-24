@@ -20,14 +20,14 @@ import java.util.List;
  * Created by FAB THE GREAT on 16/10/2017.
  */
 
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.CurrencyHolder> {
+class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.CurrencyHolder> {
 
     private List<Currency> currencies;
     private Typeface openSans_Regular;
     private Typeface arial_Regular;
     private Typeface openSans_Semibold;
 
-    public RecyclerAdapter(Context context, List<Currency> currencies) {
+    RecyclerAdapter(Context context, List<Currency> currencies) {
         this.currencies = currencies;
 
         openSans_Regular = FontUtils.getOpenSansRegular(context);
@@ -88,7 +88,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Curren
         }
     }
 
-    public void refresh(List<Currency> currencies) {
+    void refresh(List<Currency> currencies) {
         this.currencies = currencies;
         notifyDataSetChanged();
     }

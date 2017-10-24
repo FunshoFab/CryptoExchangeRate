@@ -23,6 +23,7 @@ import java.util.List;
 public class ExchangeRateFragment extends Fragment implements ExchangeRateContract.View {
 
     private ExchangeRateContract.Presenter presenter;
+
     private RecyclerAdapter adapter;
     private RecyclerView exchangeRateRv;
     private SwipeRefreshLayout swipeRefresh;

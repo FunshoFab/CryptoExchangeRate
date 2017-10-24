@@ -12,7 +12,7 @@ import static android.view.View.OnClickListener;
  * Created by FAB THE GREAT on 14/10/2017.
  */
 
-public interface ExchangeRateContract {
+interface ExchangeRateContract {
 
     interface View {
 
