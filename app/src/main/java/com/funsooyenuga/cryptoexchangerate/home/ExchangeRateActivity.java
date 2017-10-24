@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.funsooyenuga.cryptoexchangerate.R;
 import com.funsooyenuga.cryptoexchangerate.convert.ConvertActivity;
+import com.funsooyenuga.cryptoexchangerate.convert.ConvertFragment;
 import com.funsooyenuga.cryptoexchangerate.rxbus.CurrencyClickEvent;
 import com.funsooyenuga.cryptoexchangerate.rxbus.RxBus;
 import com.funsooyenuga.cryptoexchangerate.util.ActivityUtils;
@@ -65,6 +66,13 @@ public class ExchangeRateActivity extends AppCompatActivity {
     }
 
     private void showConvertScreen(String currencyName) {
-        startActivity(ConvertActivity.newIntent(this, currencyName));
+        boolean isTwoPane = findViewById(R.id.convert_container) != null;
+
+        if (isTwoPane) {
+            ActivityUtils.hostFragment(getSupportFragmentManager(), R.id.convert_container,
+                    ConvertFragment.newInstance(currencyName), null);
+        } else {
+            startActivity(ConvertActivity.newIntent(this, currencyName));
+        }
     }
 }
