@@ -2,7 +2,6 @@ package com.funsooyenuga.cryptoexchangerate.home;
 
 import android.content.Context;
 import android.support.design.widget.Snackbar;
-import android.view.View;
 
 import com.funsooyenuga.cryptoexchangerate.R;
 import com.funsooyenuga.cryptoexchangerate.data.ApiResponse;
@@ -73,13 +72,6 @@ public class ExchangeRatePresenter implements ExchangeRateContract.Presenter {
                             @Override
                             public void onError(Throwable e) {
                                 view.errorWhileLoading();
-                                view.showSnack(context.getString(R.string.error_loading_exchange_rate),
-                                        Snackbar.LENGTH_LONG, context.getString(R.string.retry), new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
-                                                getExchangeRate(true);
-                                            }
-                                        });
                             }
                         })
         );
