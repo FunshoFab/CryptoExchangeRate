@@ -3,6 +3,7 @@ package com.funsooyenuga.cryptoexchangerate.home;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -28,6 +29,7 @@ public class ExchangeRateFragment extends Fragment implements ExchangeRateContra
     private RecyclerView exchangeRateRv;
     private SwipeRefreshLayout swipeRefresh;
     private TextView errorWhileLoading;
+    private FloatingActionButton addCurrencyFab;
 
     public ExchangeRateFragment() {
         // Required empty public constructor
@@ -66,6 +68,9 @@ public class ExchangeRateFragment extends Fragment implements ExchangeRateContra
             }
         });
 
+        addCurrencyFab = (FloatingActionButton) getActivity().findViewById(R.id.add_currency);
+        addCurrencyFab.setVisibility(View.GONE);
+
         return v;
     }
 
@@ -87,6 +92,7 @@ public class ExchangeRateFragment extends Fragment implements ExchangeRateContra
         swipeRefresh.setRefreshing(false);
         errorWhileLoading.setVisibility(View.GONE);
         exchangeRateRv.setVisibility(View.VISIBLE);
+        addCurrencyFab.setVisibility(View.VISIBLE);
 
         adapter.refresh(currencies);
     }
@@ -96,7 +102,6 @@ public class ExchangeRateFragment extends Fragment implements ExchangeRateContra
         Snackbar.make(getView(), message, length)
                 .setAction(actionText, listener)
                 .show();
-
     }
 
     @Override
